@@ -30,7 +30,7 @@ func IsValid(cpf string) (bool, error) {
 		return cpfIsValid, err
 	}
 
-	newCPF := newCPF(formatCPF)
+	newCPF := newCPF(formatCPF[:9])
 
 	if newCPF == formatCPF {
 		cpfIsValid = true
@@ -75,13 +75,6 @@ func isSequency(cpf string) bool {
 
 func newCPF(cpf string) string {
 	var newCPF string
-
-	if len(cpf) == 11 {
-		newCPF = cpf[:9] + strconv.Itoa(generateDigito(cpf[:9]))
-		newCPF = newCPF + strconv.Itoa(generateDigito(newCPF[1:]))
-
-		return newCPF
-	}
 
 	newCPF = cpf + strconv.Itoa(generateDigito(cpf))
 	newCPF = newCPF + strconv.Itoa(generateDigito(newCPF[1:]))
