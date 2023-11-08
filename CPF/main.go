@@ -17,17 +17,17 @@ func Generate() string {
 	return newCPF
 }
 
-func IsValid(cpf string) (bool, error) {
+func IsValid(cpf string) (bool, string) {
 	var cpfIsValid bool = false
 
 	formatCPF, err := formatCPF(cpf)
 
 	if err != nil {
-		return cpfIsValid, err
+		return cpfIsValid, cpf
 	}
 
 	if isSequency(formatCPF) {
-		return cpfIsValid, err
+		return cpfIsValid, cpf
 	}
 
 	newCPF := newCPF(formatCPF[:9])
@@ -36,7 +36,7 @@ func IsValid(cpf string) (bool, error) {
 		cpfIsValid = true
 	}
 
-	return cpfIsValid, err
+	return cpfIsValid, newCPF
 }
 
 func formatCPF(cpf string) (string, error) {
