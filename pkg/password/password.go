@@ -23,7 +23,7 @@ type CreatePasswordDTO struct {
 }
 
 // Function to generate a random password
-func Generate(p *CreatePasswordDTO) (password string) {
+func (p *CreatePasswordDTO) Generate() (password string) {
 	var str = ""
 	for i := uint(0); i < p.LowCaseQuantity; i++ {
 		randNum := rand.Intn(len(lowCase))
