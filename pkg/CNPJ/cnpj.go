@@ -8,31 +8,46 @@ import (
 )
 
 func Generate() string {
-	randon := rand.Intn(99999999-10000000) + 10000000
-	randonSTR := strconv.Itoa(randon) + "0001"
+	numbers := "0123456789"
+	randonStr := ""
+	for i := 0; i < 8; i++ {
+		randon := rand.Intn(10)
+		randonStr += string(numbers[randon])
+	}
+	randonStr += "0001"
 
-	return newCNPJ(randonSTR)
+	cnpj := newCNPJ(randonStr)
+	cnpj = formatCNPJ(cnpj)
+	return cnpj
 }
 
 func IsValid(cnpj string) (bool, string) {
 	var cnpjIsValid bool = false
 
-	formatCNPJ, err := formatCNPJ(cnpj)
+	cnpj, err := isValidFormat(cnpj)
 
 	if err != nil {
 		return cnpjIsValid, cnpj
 	}
 
-	newCNPJ := newCNPJ(formatCNPJ[:12])
+	newCNPJ := newCNPJ(cnpj[:12])
 
-	if newCNPJ == formatCNPJ {
+	if newCNPJ == cnpj {
 		cnpjIsValid = true
 	}
+
+	newCNPJ = formatCNPJ(newCNPJ)
 
 	return cnpjIsValid, newCNPJ
 }
 
-func formatCNPJ(cnpj string) (string, error) {
+func formatCNPJ(cnpj string) string {
+	cnpj = cnpj[:2] + "." + cnpj[2:5] + "." + cnpj[5:8] + "/" + cnpj[8:12] + "-" + cnpj[12:]
+
+	return cnpj
+}
+
+func isValidFormat(cnpj string) (string, error) {
 	var err error = nil
 	var format string = cnpj
 
@@ -79,6 +94,9 @@ func generateDigito(cnpj string) int {
 	}
 
 	r := s % 11
+	if r == 10 {
+		return 0
+	}
 
 	return r
 }

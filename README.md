@@ -19,5 +19,12 @@ isCNPJ, cnpj := CPF.IsValid("xx.xxx.xxx/xxxx-xx") // retorna um boleano [true - 
 ### Password Generator pkg
 
 ```
-password := password.Generate(X int) // retorna uma senha com X caracteres
+passwordDTO := &password.CreatePasswordDTO{
+		LowCaseQuantity:     3,
+		UpCaseQuantity:      3,
+		NumbersQuantity:     3,
+		SpecialCharQuantity: 1,
+	}
+
+pw := password.Generate(passwordDTO) // retorna uma senha
 ```

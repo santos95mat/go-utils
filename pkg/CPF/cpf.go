@@ -8,11 +8,15 @@ import (
 )
 
 func Generate() string {
-	randon := rand.Intn(999999999-100000000) + 100000000
-	randonSTR := strconv.Itoa(randon)
+	numbers := "0123456789"
+	randonStr := ""
+	for i := 0; i < 9; i++ {
+		randon := rand.Intn(10)
+		randonStr += string(numbers[randon])
+	}
 
-	newCPF := newCPF(randonSTR)
-	newCPF = newCPF[:3] + "." + newCPF[3:6] + "." + newCPF[6:9] + "-" + newCPF[9:]
+	newCPF := newCPF(randonStr)
+	newCPF = FomartCPF(newCPF)
 
 	return newCPF
 }
@@ -20,26 +24,33 @@ func Generate() string {
 func IsValid(cpf string) (bool, string) {
 	var cpfIsValid bool = false
 
-	formatCPF, err := formatCPF(cpf)
+	cpf, err := isValidFormat(cpf)
 
 	if err != nil {
 		return cpfIsValid, cpf
 	}
 
-	if isSequency(formatCPF) {
+	if isSequency(cpf) {
 		return cpfIsValid, cpf
 	}
 
-	newCPF := newCPF(formatCPF[:9])
+	newCPF := newCPF(cpf[:9])
 
-	if newCPF == formatCPF {
+	if newCPF == cpf {
 		cpfIsValid = true
 	}
+
+	newCPF = FomartCPF(newCPF)
 
 	return cpfIsValid, newCPF
 }
 
-func formatCPF(cpf string) (string, error) {
+func FomartCPF(cpf string) string {
+	cpf = cpf[:3] + "." + cpf[3:6] + "." + cpf[6:9] + "-" + cpf[9:]
+	return cpf
+}
+
+func isValidFormat(cpf string) (string, error) {
 	var err error = nil
 	var format string = cpf
 
