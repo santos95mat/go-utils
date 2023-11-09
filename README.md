@@ -23,13 +23,13 @@ isCNPJ, cnpj := CPF.IsValid("xx.xxx.xxx/xxxx-xx")
 
 ```
 // Cria um objeto com as informções para gerar um senha
-passwordDTO := &password.CreatePasswordDTO{
-		LowCaseQuantity:     3,
-		UpCaseQuantity:      3,
-		NumbersQuantity:     3,
+pw := &pwg.PWG{
+		LowCaseQuantity:     4,
+		UpCaseQuantity:      1,
+		NumbersQuantity:     2,
 		SpecialCharQuantity: 1,
 	}
 
 // Gera uma senha aleatória
-pw := password.Generate(passwordDTO)
+password := pw.Generate()
 ```
