@@ -1,12 +1,23 @@
 # go-utils <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg" height="48px" />
 
-### CPF package
+### CPF pkg
 
 ```
-// retorna uma string de um CPF
-newCPF := CPF.Generate()
+newCPF := CPF.Generate() // retorna um CPF válido
 
-// retorna um boleano [true - cpf é valido | false - cpf é invalido]
-// retorna um error caso o CPF digitado não satisfaça a regras ["xxx.xxx.xxx-xx" ou "xxxxxxxxxxx"]
-isCPF, err := CPF.IsValid("xxx.xxx.xxx-xx")
+isCPF, cpf := CPF.IsValid("xxx.xxx.xxx-xx") // retorna um boleano [true - CPF é valido | false - CPF é invalido] e uma string com o CPF formatado para obter um padrão formatação.
+```
+
+### CNPJ pkg
+
+```
+newCNPJ := CNPJ.Generate() // retorna um CNPJ válido
+
+isCNPJ, cnpj := CPF.IsValid("xx.xxx.xxx/xxxx-xx") // retorna um boleano [true - CNPJ é valido | false - CNPJ é invalido] e uma string com o CNPJ formatado para obter um padrão formatação.
+```
+
+### Password Generator pkg
+
+```
+password := password.Generate(X int) // retorna uma senha com X caracteres
 ```
