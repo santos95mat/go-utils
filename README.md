@@ -1,5 +1,7 @@
 # go-utils <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg" height="48px" />
 
+### Repositório com packages criados por mim para serem utilizados em outros projetos
+
 ### CPF pkg
 ```
 // Gera um CPF aleatório
